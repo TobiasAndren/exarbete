@@ -47,8 +47,16 @@ export default {
   // Load cart from localStorage when the app is mounted
   mounted() {
     const savedCart = JSON.parse(localStorage.getItem("cart"));
-    if (savedCart) {
-      this.$store.commit("setCart", savedCart); // Commit the saved cart to Vuex store
+    const savedTimestamp = localStorage.getItem("cartTimestamp");
+    if (savedCart && savedTimestamp) {
+      const now = Date.now();
+      const maxAge = 5 * 1000;
+
+      if (now - parseInt(savedTimestamp, 10) > maxAge) {
+        this.$store.commit("clearCart");
+      } else {
+        this.$store.commit("setCart", savedCart); // Commit the saved cart to Vuex store
+      }
     }
   },
 

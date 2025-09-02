@@ -56,12 +56,15 @@
           </div>
         </div>
 
-        <div class="map">
+        <div class="map" v-if="apiKey">
           <MapBoxMap
             :accessToken="apiKey"
             :center="[11.96867975823242, 57.69932077009476]"
           />
         </div>
+        <h3 class="hoppsan" v-else>
+          Hoppsan! Verkar som våran karta är ur funktion.
+        </h3>
       </div>
       <ContactForm></ContactForm>
     </div>
@@ -186,6 +189,16 @@ export default {
 .address a,
 .opening-times a {
   color: black;
+}
+
+.hoppsan {
+  text-align: center;
+  align-self: center;
+  justify-self: center;
+  color: red;
+  padding: 2rem;
+  background-color: lightgrey;
+  height: 100%;
 }
 
 @media (max-width: 768px) {

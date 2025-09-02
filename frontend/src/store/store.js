@@ -77,6 +77,7 @@ export const store = new Vuex.Store({
       state,
       { product, size_id, quantityFromProductPage, availableStock }
     ) {
+      localStorage.removeItem("cartTimestamp");
       const item = state.cart.find(
         (i) => i.product_id === product.product_id && i.size_id === size_id
       );
@@ -108,6 +109,7 @@ export const store = new Vuex.Store({
           image_url: product.image_url_primary,
         };
 
+        localStorage.setItem("cartTimestamp", Date.now().toString());
         state.cart.push(newItem);
         state.lastAddedItem = newItem;
         state.cartPopupVisible = true;
